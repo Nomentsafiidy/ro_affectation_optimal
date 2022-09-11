@@ -25,4 +25,15 @@ export class HomePage implements OnInit {
     createTab() {
         this.affectationTab = new AffectationTab(this.simpleTab);
     }
+
+    resolveAffectation(affectationTab: AffectationTab) {
+        // TODO
+        this.step1(affectationTab);
+    }
+
+    step1(affectationTab: AffectationTab) {
+        affectationTab.subtractCols();
+        affectationTab.subtractLines();
+        console.log('affectationTab :>> ', affectationTab);
+    }
 }

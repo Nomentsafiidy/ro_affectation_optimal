@@ -13,7 +13,10 @@
     </div>
     <!-- Content -->
     <ng-container *ngIf="affectationTab">
-        <app-affectation-tab [affectationTab]="affectationTab"></app-affectation-tab>
+        <app-affectation-tab
+            (resolveAffectation)="resolveAffectation($event)"
+            [affectationTab]="affectationTab"
+        ></app-affectation-tab>
     </ng-container>
     <!-- <ng-container *ngIf="affectationTab">
         <div class="affectation_tab">

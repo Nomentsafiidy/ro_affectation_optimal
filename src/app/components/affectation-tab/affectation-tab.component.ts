@@ -15,6 +15,6 @@ export class AffectationTabComponent implements OnInit {
     async ngOnInit() {}
 
     onResolve() {
-        this.resolveAffectation.emit();
+        this.resolveAffectation.emit(this.affectationTab);
     }
 }

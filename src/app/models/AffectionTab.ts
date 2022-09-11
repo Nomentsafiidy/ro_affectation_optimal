@@ -31,6 +31,32 @@ export class AffectationTab {
     public getCell(rowIndex: number, colIndex: number): AffectationCell {
         return this.cells.find((cel) => cel.rowIndex === rowIndex && cel.colIndex === colIndex) as AffectationCell;
     }
+
+    /**
+     * soustraire la collone par la plus petite valeur
+     */
+    public subtractCols() {
+        this.cols.forEach((col) => {
+            const min = Math.min(...this.rows.map((row) => this.getCell(row, col).value));
+            this.rows.forEach((row) => {
+                const cel = this.getCell(row, col);
+                cel.value = cel.value - min;
+            });
+        });
+    }
+
+    /**
+     * soustraire la ligne par la plus petite valeur
+     */
+    public subtractLines() {
+        this.rows.forEach((row) => {
+            const min = Math.min(...this.cols.map((col) => this.getCell(row, col).value));
+            this.cols.forEach((col) => {
+                const cel = this.getCell(row, col);
+                cel.value = cel.value - min;
+            });
+        });
+    }
 }
 
 export class AffectationCell {
