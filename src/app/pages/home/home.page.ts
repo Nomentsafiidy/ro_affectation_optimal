@@ -16,6 +16,7 @@ export class HomePage implements OnInit {
     public affectationTab!: AffectationTab;
 
     public affectationTabResult: AffectationTab[] = [];
+    public solutionFound: boolean = false;
 
     constructor() {}
 
@@ -33,7 +34,10 @@ export class HomePage implements OnInit {
         this.affectationTab = affectationTab;
         this.affectationTabResult = [];
         const setp1Result = this.step1(affectationTab);
-        this.step2(setp1Result);
+        const setp2Result = this.step2(setp1Result);
+        if (setp2Result.isSolution()) {
+            this.solutionFound = true;
+        }
     }
 
     step1(affectationTab: AffectationTab): AffectationTab {

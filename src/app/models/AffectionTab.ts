@@ -122,10 +122,24 @@ export class AffectationTab {
 
     public hasFreeZero() {
         let som = this.cells.some((cell) => cell.value == 0 && !cell.barred && !cell.marked);
-        console.log('this.cells', this.cells);
-        console.log('this.cells som', som);
-
         return som;
+    }
+
+    public isSolution() {
+        let makedRow: boolean[] = this.rows.map((_) => false);
+        let makedCol: boolean[] = this.cols.map((_) => false);
+        this.rows.forEach((row) => {
+            this.cols.forEach((col) => {
+                const cell = this.getCell(row, col);
+                if (cell.marked) {
+                    makedRow[row] = true;
+                    makedCol[col] = true;
+                }
+            });
+        });
+        console.log('makedRow =>', makedRow);
+        console.log('makedCol =>', makedCol);
+        return !(makedRow.some((e) => !e) || makedCol.some((e) => !e));
     }
 }
 
