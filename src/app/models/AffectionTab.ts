@@ -40,9 +40,7 @@ export class AffectationTab {
 
     public getClone(): AffectationTab {
         const clone = new AffectationTab(this.simpleTab);
-        this.cells.forEach((cel, index) => {
-            clone.cells[index].value = cel.value;
-        });
+        clone.cells = this.cells.map((cell) => cell.getClone());
         return clone;
     }
 
@@ -137,9 +135,45 @@ export class AffectationTab {
                 }
             });
         });
-        console.log('makedRow =>', makedRow);
-        console.log('makedCol =>', makedCol);
         return !(makedRow.some((e) => !e) || makedCol.some((e) => !e));
+    }
+
+    //
+
+    getCellWithoutMarkedZero(): AffectationCell | null {
+        let cell: AffectationCell | null = null;
+        this.rows.forEach((row) => {
+            let rowCell: AffectationCell[] = [];
+            this.cols.forEach((col) => {
+                rowCell.push(this.getCell(row, col));
+            });
+            if (rowCell.some((rc) => rc.value == 0)) {
+                rowCell.forEach((rc) => {
+                    if (
+                        rc.value == 0 &&
+                        ((rc.barred && !rowCell.some((rc2) => rc2.marked && !rc.colMarked) && !rc.rowMarked) ||
+                            (rc.marked && rc.colMarked && !rc.rowMarked))
+                    ) {
+                        cell = rc;
+                    }
+                });
+            }
+        });
+        return cell;
+    }
+
+    markedRowAndCol(rowIndex: number, colIndex: number) {
+        this.rows.forEach((row) => {
+            this.cols.forEach((col) => {
+                const cell = this.getCell(row, col);
+                if (row == rowIndex) {
+                    cell.rowMarked = true;
+                }
+                if (col == colIndex) {
+                    cell.colMarked = true;
+                }
+            });
+        });
     }
 }
 
@@ -150,12 +184,36 @@ export class AffectationCell {
     public value: number;
     public marked: boolean;
     public barred: boolean;
+    public rowMarked: boolean;
+    public colMarked: boolean;
     constructor(rowIndex: number, colIndex: number) {
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
+        this.id = `r${rowIndex}-c${colIndex}`;
         this.marked = false;
         this.barred = false;
-        this.id = `r${rowIndex}-c${colIndex}`;
+        this.rowMarked = false;
+        this.colMarked = false;
         this.value = 0;
+    }
+
+    getClone() {
+        const clone = new AffectationCell(this.rowIndex, this.colIndex);
+        clone.setProperty({
+            marked: this.marked,
+            barred: this.barred,
+            rowMarked: this.rowMarked,
+            colMarked: this.colMarked,
+            value: this.value,
+        });
+        return clone;
+    }
+
+    setProperty(props: { marked: boolean; barred: boolean; rowMarked: boolean; colMarked: boolean; value: number }) {
+        this.marked = props.marked;
+        this.barred = props.barred;
+        this.rowMarked = props.rowMarked;
+        this.colMarked = props.colMarked;
+        this.value = props.value;
     }
 }

@@ -33,6 +33,16 @@
             &.barred {
                 background: red;
             }
+
+            &.colMarked {
+                background: yellow;
+            }
+            &.rowMarked {
+                background: yellow;
+            }
+            &.colRowMarked {
+                background: violet;
+            }
         }
     }
 }

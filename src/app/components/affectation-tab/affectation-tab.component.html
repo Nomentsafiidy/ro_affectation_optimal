@@ -21,7 +21,13 @@
                     <div
                         *ngFor="let col of affectationTab.cols"
                         class="col"
-                        [ngClass]="{'marked': affectationTab.getCell(row,col).marked, 'barred': affectationTab.getCell(row,col).barred }"
+                        [ngClass]="{
+                                    'marked': affectationTab.getCell(row,col).marked, 
+                                    'barred': affectationTab.getCell(row,col).barred, 
+                                    'rowMarked': affectationTab.getCell(row,col).rowMarked, 
+                                    'colMarked': affectationTab.getCell(row,col).colMarked,
+                                    'colRowMarked': affectationTab.getCell(row,col).rowMarked && affectationTab.getCell(row,col).colMarked
+                                }"
                     >
                         <div *ngIf="isDisplay" class="cell_value">
                             {{ affectationTab.getCell(row,col).value }}

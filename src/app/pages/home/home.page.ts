@@ -37,10 +37,15 @@ export class HomePage implements OnInit {
         const setp2Result = this.step2(setp1Result);
         if (setp2Result.isSolution()) {
             this.solutionFound = true;
+        } else {
+            setTimeout(() => {
+                this.step3(setp2Result);
+            }, 1000);
         }
     }
 
     step1(affectationTab: AffectationTab): AffectationTab {
+        console.log('step 1');
         const clone1 = affectationTab.getClone();
         clone1.subtractCols();
         this.affectationTabResult.push(clone1);
@@ -51,7 +56,7 @@ export class HomePage implements OnInit {
     }
 
     step2(affectationTab: AffectationTab) {
-        // TODO
+        console.log('step 2');
         const clone1 = affectationTab.getClone();
         while (clone1.hasFreeZero()) {
             let row = clone1.getRowWithMinFreeZero();
@@ -62,5 +67,23 @@ export class HomePage implements OnInit {
         }
         this.affectationTabResult.push(clone1);
         return clone1;
+    }
+
+    step3(affectationTab: AffectationTab) {
+        // TODO
+        console.log('step 3');
+        const clone1 = affectationTab.getClone();
+        // while (clone1.canMarkedRowAndCell()) {
+        let cell = clone1.getCellWithoutMarkedZero();
+
+        while (cell) {
+            console.log('cell :>> ', cell);
+            clone1.markedRowAndCol(cell.rowIndex, cell.colIndex);
+            cell = clone1.getCellWithoutMarkedZero();
+        }
+
+        // }
+        this.affectationTabResult.push(clone1);
+        // return clone1;
     }
 }
