@@ -1,4 +1,28 @@
-<div>
-  <app-header></app-header>
-  Home work !!
+<div class="container">
+    <app-header></app-header>
+    <div class="tab_form">
+        <div class="input_group">
+            <div class="label">Ligne</div>
+            <input [(ngModel)]="simpleTab.row" type="number" min="0" class="input" />
+        </div>
+        <div class="input_group">
+            <div class="label">Colonne</div>
+            <input [(ngModel)]="simpleTab.col" type="number" min="0" class="input" />
+        </div>
+        <button (click)="createTab()" class="btn btn_primary">Créer tableau</button>
+    </div>
+    <!-- Content -->
+    <!-- <app-affectation-tab></app-affectation-tab> -->
+    <ng-container *ngIf="affectationTab">
+        <app-affectation-tab [affectationTab]="affectationTab"></app-affectation-tab>
+    </ng-container>
+    <!-- <ng-container *ngIf="affectationTab">
+        <div class="affectation_tab">
+            <div *ngFor="let row of affectationTab.rows">
+                <div *ngFor="let col of affectationTab.cols">
+                    {{ row }}-{{col}}
+                </div>
+            </div>
+        </div>
+    </ng-container> -->
 </div>

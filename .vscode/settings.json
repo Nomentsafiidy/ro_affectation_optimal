@@ -1,0 +1,24 @@
+{
+    "peacock.color": "#354",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#46755d",
+        "activityBar.activeBorder": "#af9bc3",
+        "activityBar.background": "#46755d",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#af9bc3",
+        "activityBarBadge.foreground": "#000000",
+        "titleBar.activeBackground": "#335544",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#33554499",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "prettier.printWidth": 120,
+    "prettier.tabWidth": 4,
+    "editor.defaultFormatter": "svipas.prettier-plus",
+    "typescript.preferences.quoteStyle": "single",
+    "javascript.preferences.quoteStyle": "single",
+    "prettier.embeddedLanguageFormatting": "off",
+    "prettier.singleQuote": true,
+    "markdown.preview.typographer": true
+}
