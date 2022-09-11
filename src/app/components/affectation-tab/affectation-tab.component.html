@@ -18,8 +18,16 @@
         <div class="cells">
             <ng-container *ngIf="affectationTab">
                 <div *ngFor="let row of affectationTab.rows" class="row">
-                    <div *ngFor="let col of affectationTab.cols" class="col">
+                    <div
+                        *ngFor="let col of affectationTab.cols"
+                        class="col"
+                        [ngClass]="{'marked': affectationTab.getCell(row,col).marked, 'barred': affectationTab.getCell(row,col).barred }"
+                    >
+                        <div *ngIf="isDisplay" class="cell_value">
+                            {{ affectationTab.getCell(row,col).value }}
+                        </div>
                         <input
+                            *ngIf="!isDisplay"
                             [(ngModel)]="affectationTab.getCell(row,col).value"
                             type="number"
                             min="0"

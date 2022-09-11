@@ -73,6 +73,60 @@ export class AffectationTab {
             });
         });
     }
+
+    public getRowWithMinFreeZero(): number {
+        let min = 10000;
+        let rowIndex: number = NaN;
+        this.rows.forEach((row) => {
+            let zeroNumber = 0;
+            this.cols.forEach((col) => {
+                const cel = this.getCell(row, col);
+                if (cel.value == 0 && !cel.marked && !cel.barred) {
+                    zeroNumber++;
+                }
+            });
+            if (zeroNumber != 0 && zeroNumber < min) {
+                min = zeroNumber;
+                rowIndex = row;
+            }
+        });
+        return rowIndex;
+    }
+
+    public getFirstColWithFreeZero(rowIndex: number): number {
+        let colIndex: number = NaN;
+        for (const col of this.cols) {
+            const cel = this.getCell(this.rows[rowIndex], col);
+            if (cel.value === 0 && !cel.barred && !cel.marked) {
+                colIndex = col;
+                break;
+            }
+        }
+        return colIndex;
+    }
+
+    public barredOtherZero(row: number, col: number) {
+        this.cols.forEach((tmpCol) => {
+            const cell = this.getCell(row, tmpCol);
+            if (!cell.marked && cell.value == 0) {
+                cell.barred = true;
+            }
+        });
+        this.rows.forEach((tmpRow) => {
+            const cell = this.getCell(tmpRow, col);
+            if (!cell.marked && cell.value == 0) {
+                cell.barred = true;
+            }
+        });
+    }
+
+    public hasFreeZero() {
+        let som = this.cells.some((cell) => cell.value == 0 && !cell.barred && !cell.marked);
+        console.log('this.cells', this.cells);
+        console.log('this.cells som', som);
+
+        return som;
+    }
 }
 
 export class AffectationCell {
@@ -80,9 +134,13 @@ export class AffectationCell {
     public rowIndex: number;
     public colIndex: number;
     public value: number;
+    public marked: boolean;
+    public barred: boolean;
     constructor(rowIndex: number, colIndex: number) {
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
+        this.marked = false;
+        this.barred = false;
         this.id = `r${rowIndex}-c${colIndex}`;
         this.value = 0;
     }
