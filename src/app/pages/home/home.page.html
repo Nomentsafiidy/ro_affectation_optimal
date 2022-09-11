@@ -18,6 +18,12 @@
             [affectationTab]="affectationTab"
         ></app-affectation-tab>
     </ng-container>
+    <ng-container *ngIf="affectationTabResult.length">
+        <app-affectation-tab
+            *ngFor="let affectationTab of affectationTabResult"
+            [affectationTab]="affectationTab"
+        ></app-affectation-tab>
+    </ng-container>
     <!-- <ng-container *ngIf="affectationTab">
         <div class="affectation_tab">
             <div *ngFor="let row of affectationTab.rows">

@@ -14,6 +14,9 @@ export class HomePage implements OnInit {
     };
 
     public affectationTab!: AffectationTab;
+
+    public affectationTabResult: AffectationTab[] = [];
+
     constructor() {}
 
     /*========================================*
@@ -28,12 +31,19 @@ export class HomePage implements OnInit {
 
     resolveAffectation(affectationTab: AffectationTab) {
         // TODO
+        this.affectationTab = affectationTab;
+        this.affectationTabResult = [];
         this.step1(affectationTab);
     }
 
     step1(affectationTab: AffectationTab) {
-        affectationTab.subtractCols();
-        affectationTab.subtractLines();
-        console.log('affectationTab :>> ', affectationTab);
+        const clone1 = affectationTab.getClone();
+        clone1.subtractCols();
+        this.affectationTabResult.push(clone1);
+        const clone2 = clone1.getClone();
+        clone2.subtractLines();
+        this.affectationTabResult.push(clone2);
+        console.log('clone1 :>> ', clone1);
+        console.log('clone2 :>> ', clone2);
     }
 }

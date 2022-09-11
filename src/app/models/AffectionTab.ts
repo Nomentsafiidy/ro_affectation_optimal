@@ -2,8 +2,8 @@ import { SimpleTab } from './interface';
 
 export class AffectationTab {
     private simpleTab: SimpleTab;
-    private cells: AffectationCell[];
     // PUBLIC Property
+    public cells: AffectationCell[];
     public cols: number[];
     public rows: number[];
     public colHeader: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
@@ -28,9 +28,25 @@ export class AffectationTab {
         });
     }
 
+    /**
+     *
+     * @param rowIndex
+     * @param colIndex
+     * @returns
+     */
     public getCell(rowIndex: number, colIndex: number): AffectationCell {
         return this.cells.find((cel) => cel.rowIndex === rowIndex && cel.colIndex === colIndex) as AffectationCell;
     }
+
+    public getClone(): AffectationTab {
+        const clone = new AffectationTab(this.simpleTab);
+        this.cells.forEach((cel, index) => {
+            clone.cells[index].value = cel.value;
+        });
+        return clone;
+    }
+
+    // ALGO
 
     /**
      * soustraire la collone par la plus petite valeur
