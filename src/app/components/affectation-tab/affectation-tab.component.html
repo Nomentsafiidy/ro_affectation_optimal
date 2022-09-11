@@ -30,7 +30,7 @@
             </ng-container>
         </div>
     </div>
-    <div class="actions">
+    <div *ngIf="!isDisplay" class="actions">
         <button (click)="onResolve()">resoudre</button>
     </div>
 </div>

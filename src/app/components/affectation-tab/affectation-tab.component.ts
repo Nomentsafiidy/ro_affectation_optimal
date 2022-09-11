@@ -8,6 +8,7 @@ import { AffectationTab } from 'src/app/models/AffectionTab';
 })
 export class AffectationTabComponent implements OnInit {
     @Input('affectationTab') affectationTab!: AffectationTab;
+    @Input('isDisplay') isDisplay!: boolean;
     @Output('resolveAffectation') resolveAffectation: EventEmitter<AffectationTab> = new EventEmitter();
 
     constructor() {}

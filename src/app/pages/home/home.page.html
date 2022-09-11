@@ -21,6 +21,7 @@
     <ng-container *ngIf="affectationTabResult.length">
         <app-affectation-tab
             *ngFor="let affectationTab of affectationTabResult"
+            [isDisplay]="true"
             [affectationTab]="affectationTab"
         ></app-affectation-tab>
     </ng-container>
