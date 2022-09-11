@@ -1,13 +1,13 @@
 import { SimpleTab } from './interface';
 
 export class AffectationTab {
-    private colHeader: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-    private rowHeader: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
     private simpleTab: SimpleTab;
     private cells: AffectationCell[];
     // PUBLIC Property
     public cols: number[];
     public rows: number[];
+    public colHeader: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
+    public rowHeader: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
     constructor(simpleTab: SimpleTab) {
         this.simpleTab = simpleTab;
         this.cells = [];
@@ -26,6 +26,10 @@ export class AffectationTab {
                 this.cells.push(new AffectationCell(row, col));
             });
         });
+    }
+
+    public getCell(rowIndex: number, colIndex: number): AffectationCell {
+        return this.cells.find((cel) => cel.rowIndex === rowIndex && cel.colIndex === colIndex) as AffectationCell;
     }
 }
 

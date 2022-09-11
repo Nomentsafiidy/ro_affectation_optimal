@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AffectationTab } from 'src/app/models/AffectionTab';
 
 @Component({
@@ -8,10 +8,13 @@ import { AffectationTab } from 'src/app/models/AffectionTab';
 })
 export class AffectationTabComponent implements OnInit {
     @Input('affectationTab') affectationTab!: AffectationTab;
+    @Output('resolveAffectation') resolveAffectation: EventEmitter<AffectationTab> = new EventEmitter();
 
     constructor() {}
 
-    async ngOnInit() {
-        console.log('this.affectationTab', this.affectationTab);
+    async ngOnInit() {}
+
+    onResolve() {
+        this.resolveAffectation.emit();
     }
 }
