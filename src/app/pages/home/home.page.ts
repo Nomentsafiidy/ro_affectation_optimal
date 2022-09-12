@@ -34,13 +34,14 @@ export class HomePage implements OnInit {
         this.affectationTab = affectationTab;
         this.affectationTabResult = [];
         const setp1Result = this.step1(affectationTab);
-        const setp2Result = this.step2(setp1Result);
+        let setp2Result = this.step2(setp1Result);
+        while (!setp2Result.isSolution()) {
+            const setp3Result = this.step3(setp2Result);
+            const setp4Result = this.step4(setp3Result);
+            setp2Result = this.step2(setp4Result);
+        }
         if (setp2Result.isSolution()) {
             this.solutionFound = true;
-        } else {
-            setTimeout(() => {
-                this.step3(setp2Result);
-            }, 1000);
         }
     }
 
@@ -70,20 +71,28 @@ export class HomePage implements OnInit {
     }
 
     step3(affectationTab: AffectationTab) {
-        // TODO
         console.log('step 3');
         const clone1 = affectationTab.getClone();
-        // while (clone1.canMarkedRowAndCell()) {
         let cell = clone1.getCellWithoutMarkedZero();
-
         while (cell) {
-            console.log('cell :>> ', cell);
             clone1.markedRowAndCol(cell.rowIndex, cell.colIndex);
+            this.affectationTabResult.push(clone1.getClone());
             cell = clone1.getCellWithoutMarkedZero();
         }
-
-        // }
         this.affectationTabResult.push(clone1);
-        // return clone1;
+        return clone1;
+    }
+
+    step4(affectationTab: AffectationTab) {
+        console.log('step 4');
+        const clone1 = affectationTab.getClone();
+        const min = clone1.getMinCellValue();
+        clone1.moveZero(min);
+        this.affectationTabResult.push(clone1);
+        //
+        const clone2 = clone1.getClone();
+        clone2.removeMark();
+        this.affectationTabResult.push(clone2);
+        return clone2;
     }
 }

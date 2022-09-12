@@ -149,14 +149,26 @@ export class AffectationTab {
             });
             if (rowCell.some((rc) => rc.value == 0)) {
                 rowCell.forEach((rc) => {
-                    if (
-                        rc.value == 0 &&
-                        ((rc.barred && !rowCell.some((rc2) => rc2.marked && !rc.colMarked) && !rc.rowMarked) ||
-                            (rc.marked && rc.colMarked && !rc.rowMarked))
-                    ) {
-                        cell = rc;
+                    if (rc.value == 0 && rc.barred && !rc.colMarked && !rc.rowMarked) {
+                        if (!rowCell.filter((rc2) => rc2.id != rc.id).some((rc2) => rc2.value == 0 && rc2.marked)) {
+                            cell = rc;
+                        } else if (
+                            rowCell
+                                .filter((rc2) => rc2.id != rc.id)
+                                .filter((rc2) => rc2.value == 0 && rc2.marked)
+                                .every((rc2) => rc2.colMarked)
+                        ) {
+                            cell = rc;
+                        }
                     }
                 });
+                if (!cell) {
+                    rowCell.forEach((rc) => {
+                        if (rc.value == 0 && rc.marked && rc.colMarked && !rc.rowMarked) {
+                            cell = rc;
+                        }
+                    });
+                }
             }
         });
         return cell;
@@ -173,6 +185,34 @@ export class AffectationTab {
                     cell.colMarked = true;
                 }
             });
+        });
+    }
+
+    getMinCellValue(): number {
+        return Math.min(
+            ...this.cells
+                .filter((rc) => rc.rowMarked && !rc.colMarked)
+                .filter((rc) => rc.value != 0)
+                .map((rc) => rc.value),
+        );
+    }
+
+    moveZero(min: number) {
+        this.cells.forEach((rc) => {
+            if (rc.colMarked && !rc.rowMarked) {
+                rc.value += min;
+            } else if (rc.rowMarked && !rc.colMarked) {
+                rc.value -= min;
+            }
+        });
+    }
+
+    removeMark() {
+        this.cells.forEach((rc) => {
+            rc.barred = false;
+            rc.marked = false;
+            rc.colMarked = false;
+            rc.rowMarked = false;
         });
     }
 }
