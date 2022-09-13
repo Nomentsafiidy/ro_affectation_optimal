@@ -1,6 +1,11 @@
 .container {
+    padding: 15px;
+
     --col-width: 60px;
     --row-height: 40px;
+    .table {
+        margin: 16px;
+    }
     .tab_header {
         margin: 0 var(--col-width);
     }
@@ -42,6 +47,29 @@
             }
             &.colRowMarked {
                 background: violet;
+            }
+        }
+    }
+    .cal_form {
+        display: flex;
+        width: 20%;
+        background: red;
+
+        .input_group {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            font-size: 16px;
+            color: #333;
+            .label {
+                margin: 2px;
+                font-weight: bold;
+            }
+            .input {
+                height: 40px;
+                border: 1px solid;
+                border-radius: 4px;
+                outline: none !important;
             }
         }
     }

@@ -1,27 +1,74 @@
 .container {
-    max-width: 1200px;
-    margin: auto;
-    .tab_form {
+    width: 100vw;
+    height: 100vh;
+    .content {
         display: flex;
-        justify-content: center;
-        & > * {
-            margin: 16px;
+        flex-direction: row;
+        overflow-x: hidden;
+        .tab_form {
+            width: 20%;
+            height: 100%;
+            box-shadow: 2px 0 5px -2px #888;
+            position: fixed;
+            padding: 20px 0;
+            .input_group {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                font-size: 16px;
+                color: #333;
+                .label {
+                    margin: 2px;
+                    font-weight: bold;
+                }
+                .input {
+                    height: 40px;
+                    border: 1px solid;
+                    border-radius: 4px;
+                    outline: none !important;
+                }
+            }
+            .btn {
+                display: flex;
+                justify-content: flex-end;
+                padding: 10px;
+                .btn_primary {
+                    padding: 10px;
+                }
+            }
         }
-        .input_group {
+        .tab_body {
+            height: auto;
+            margin-left: 20%;
+            width: calc(100% - 20%);
             display: flex;
-            align-items: center;
-            font-size: 16px;
-            line-height: 24px;
-            color: #333;
-            .label {
-                margin-right: 16px;
-                font-weight: bold;
-            }
-            .input {
-                height: 40px;
-                border: 1px solid violet;
-                outline: none !important;
-            }
+            flex-wrap: wrap;
+            justify-content: center;
         }
     }
+
+    //     .tab_form {
+    //         display: flex;
+    //         width: 30%;
+    //         height: 100%;
+    //         background: red;
+
+    //         .input_group {
+    //             display: flex;
+    //             align-items: center;
+    //             font-size: 16px;
+    //             line-height: 24px;
+    //             color: #333;
+    //             .label {
+    //                 margin-right: 16px;
+    //                 font-weight: bold;
+    //             }
+    //             .input {
+    //                 height: 40px;
+    //                 border: 1px solid violet;
+    //                 outline: none !important;
+    //             }
+    //         }
+    //     }
+    // }
 }

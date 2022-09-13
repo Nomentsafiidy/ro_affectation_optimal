@@ -11,7 +11,11 @@ export class HomePage implements OnInit {
     public simpleTab: SimpleTab = {
         row: 0,
         col: 0,
+        type: 'Affectation Minimal',
+        complement: 0,
     };
+
+    typeAffectations = [' Affectation Minimal', 'Affectation Maximal'];
 
     public affectationTab!: AffectationTab;
 

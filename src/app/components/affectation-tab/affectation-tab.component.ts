@@ -11,6 +11,7 @@ export class AffectationTabComponent implements OnInit {
     @Input('isDisplay') isDisplay!: boolean;
     @Output('resolveAffectation') resolveAffectation: EventEmitter<AffectationTab> = new EventEmitter();
 
+    typeAffectations = [' Affectation Minimal', 'Affectation Maximal'];
     constructor() {}
 
     async ngOnInit() {}

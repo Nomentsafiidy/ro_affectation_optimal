@@ -1,40 +1,76 @@
 <div class="container">
     <app-header></app-header>
-    <div class="tab_form">
-        <div class="input_group">
-            <div class="label">Ligne</div>
-            <input [(ngModel)]="simpleTab.row" type="number" min="0" class="input" />
-        </div>
-        <div class="input_group">
-            <div class="label">Colonne</div>
-            <input [(ngModel)]="simpleTab.col" type="number" min="0" class="input" />
-        </div>
-        <button (click)="createTab()" class="btn btn_primary">Créer tableau</button>
-    </div>
-    <!-- Content -->
-    <ng-container *ngIf="affectationTab">
-        <app-affectation-tab
-            (resolveAffectation)="resolveAffectation($event)"
-            [affectationTab]="affectationTab"
-        ></app-affectation-tab>
-    </ng-container>
-    <ng-container *ngIf="affectationTabResult.length">
-        <app-affectation-tab
-            *ngFor="let affectationTab of affectationTabResult"
-            [isDisplay]="true"
-            [affectationTab]="affectationTab"
-        ></app-affectation-tab>
-    </ng-container>
-    <!-- <ng-container *ngIf="affectationTab">
-        <div class="affectation_tab">
-            <div *ngFor="let row of affectationTab.rows">
-                <div *ngFor="let col of affectationTab.cols">
-                    {{ row }}-{{col}}
-                </div>
+    <div class="content">
+        <div class="tab_form">
+            <div class="input_group" *ngIf="simpleTab.type == 'Affectation Maximal'">
+                <div class="label">Complément à</div>
+                <input [(ngModel)]="simpleTab.complement" type="number" min="0" class="input" />
+            </div>
+
+            <div class="input_group">
+                <div class="label">Ligne</div>
+                <input [(ngModel)]="simpleTab.row" type="number" min="0" class="input" />
+            </div>
+            <div class="input_group">
+                <div class="label">Colonne</div>
+                <input [(ngModel)]="simpleTab.col" type="number" min="0" class="input" />
+            </div>
+            <div class="btn">
+                <button (click)="createTab()" class="btn_primary">Créer tableau</button>
+            </div>
+
+            <div></div>
+            <div class="input_group">
+                <div class="label">Type</div>
+                <select i="select" class="input" [(ngModel)]="simpleTab.type">
+                    <option *ngFor="let typeaffectation of typeAffectations" [value]="typeaffectation"
+                        >{{typeaffectation}}</option
+                    >
+                </select>
+            </div>
+            <div class="actions btn">
+                <button class="btn_primary">resoudre</button>
             </div>
         </div>
-    </ng-container> -->
-    <div *ngIf="solutionFound">
-        Solution trouvé
+        <div class="tab_body">
+            <div>
+                <ng-container *ngIf="affectationTab">
+                    <app-affectation-tab
+                        (resolveAffectation)="resolveAffectation($event)"
+                        [affectationTab]="affectationTab"
+                    ></app-affectation-tab>
+                </ng-container>
+            </div>
+
+            <ng-container *ngIf="affectationTabResult.length">
+                <app-affectation-tab
+                    *ngFor="let affectationTab of affectationTabResult"
+                    [isDisplay]="true"
+                    [affectationTab]="affectationTab"
+                ></app-affectation-tab>
+            </ng-container>
+            <div *ngIf="solutionFound">
+                Solution trouvé
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- <div class="content">
+ 
+    <div class="table">
+     
+        commennt
+        <ng-container *ngIf="affectationTab">
+            <div class="affectation_tab">
+                <div *ngFor="let row of affectationTab.rows">
+                    <div *ngFor="let col of affectationTab.cols">
+                        {{ row }}-{{col}}
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        fin commentaire
+       
+    </div>
+</div> -->
