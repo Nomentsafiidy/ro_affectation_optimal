@@ -71,6 +71,10 @@ export class HomePage implements OnInit {
             setp2Result = this.step2(setp4Result);
         }
         if (setp2Result.isSolution()) {
+            //
+            // this.affectationTabResult = [];
+            // this.affectationTabResult.push(setp2Result);
+            //
             this.solutionFound = true;
             this.affectionSolution = setp2Result.getSolution(this.affectationTab);
             this.solutionValue = this.affectionSolution
