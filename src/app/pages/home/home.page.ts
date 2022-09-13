@@ -37,6 +37,7 @@ export class HomePage implements OnInit {
     createTab() {
         this.affectationTab = new AffectationTab(this.simpleTab);
         this.affectationTabResult = [];
+        this.solutionFound = false;
     }
 
     colAndRowChange() {
