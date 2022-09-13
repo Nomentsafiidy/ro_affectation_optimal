@@ -1,4 +1,4 @@
-import { SimpleTab } from './interface';
+import { AffectationSolution, SimpleTab } from './interface';
 
 export class AffectationTab {
     private simpleTab: SimpleTab;
@@ -14,6 +14,12 @@ export class AffectationTab {
         this.cols = [];
         this.rows = [];
         this.init();
+    }
+
+    doComplement(complement: number) {
+        this.cells.forEach((cell) => {
+            cell.value = complement - cell.value;
+        });
     }
 
     private init() {
@@ -138,18 +144,21 @@ export class AffectationTab {
         return !(makedRow.some((e) => !e) || makedCol.some((e) => !e));
     }
 
-    public getSolution(originalTab: AffectationTab) {
-        // TODO
-        // const solutionCells: AffectationCell[] = [];
-        // this.rows.forEach((row) => {
-        //     this.cols.forEach((col) => {
-        //         const cell = this.getCell(row, col);
-        //         if (cell.marked) {
-        //             makedRow[row] = true;
-        //             makedCol[col] = true;
-        //         }
-        //     });
-        // });
+    public getSolution(originalTab: AffectationTab): AffectationSolution[] {
+        const solutionCells: AffectationSolution[] = [];
+        this.rows.forEach((row) => {
+            this.cols.forEach((col) => {
+                const cell = this.getCell(row, col);
+                if (cell.marked) {
+                    solutionCells.push({
+                        rowIndex: row,
+                        colIndex: col,
+                        value: originalTab.getCell(row, col).value,
+                    });
+                }
+            });
+        });
+        return solutionCells;
     }
 
     //

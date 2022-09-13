@@ -77,7 +77,14 @@
             }
         }
     }
-
+    .complement {
+        background: #3f4e4f;
+        color: white;
+        padding: 16px 48px;
+        font-size: 16px;
+        position: relative;
+        align-self: center !important;
+    }
     //     .tab_form {
     //         display: flex;
     //         width: 30%;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AffectationTab } from 'src/app/models/AffectionTab';
-import { SimpleTab } from 'src/app/models/interface';
+import { AffectationSolution, AFFECTATION_TYPE, SimpleTab } from 'src/app/models/interface';
 
 @Component({
     selector: 'app-home',
@@ -8,19 +8,23 @@ import { SimpleTab } from 'src/app/models/interface';
     styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-    public simpleTab: SimpleTab = {
-        row: 0,
-        col: 0,
-        type: 'Affectation Minimal',
-        complement: 0,
-    };
-
     typeAffectations = [' Affectation Minimal', 'Affectation Maximal'];
 
     public affectationTab!: AffectationTab;
 
     public affectationTabResult: AffectationTab[] = [];
     public solutionFound: boolean = false;
+    //
+    public AFFECTATION_TYPE: typeof AFFECTATION_TYPE = AFFECTATION_TYPE;
+    public simpleTab: SimpleTab = {
+        rowAndCol: 0,
+        row: 0,
+        col: 0,
+        type: AFFECTATION_TYPE.MIN,
+        complement: 0,
+    };
+    public affectionSolution: AffectationSolution[] = [];
+    solutionValue = 0;
 
     constructor() {}
 
@@ -32,12 +36,33 @@ export class HomePage implements OnInit {
 
     createTab() {
         this.affectationTab = new AffectationTab(this.simpleTab);
+        this.affectationTabResult = [];
+    }
+
+    colAndRowChange() {
+        this.simpleTab.col = this.simpleTab.rowAndCol;
+        this.simpleTab.row = this.simpleTab.rowAndCol;
+    }
+
+    onMaxChange(max: number) {
+        if (this.simpleTab.type == AFFECTATION_TYPE.MAX) {
+            this.simpleTab.complement = Math.max(this.simpleTab.complement, max);
+        }
     }
 
     resolveAffectation(affectationTab: AffectationTab) {
+        let tmpTab = affectationTab;
+
         this.affectationTab = affectationTab;
         this.affectationTabResult = [];
-        const setp1Result = this.step1(affectationTab);
+
+        if (this.simpleTab.type == AFFECTATION_TYPE.MAX) {
+            tmpTab = affectationTab.getClone();
+            tmpTab.doComplement(this.simpleTab.complement);
+            this.affectationTabResult.push(tmpTab);
+        }
+
+        const setp1Result = this.step1(tmpTab);
         let setp2Result = this.step2(setp1Result);
         while (!setp2Result.isSolution()) {
             const setp3Result = this.step3(setp2Result);
@@ -46,6 +71,10 @@ export class HomePage implements OnInit {
         }
         if (setp2Result.isSolution()) {
             this.solutionFound = true;
+            this.affectionSolution = setp2Result.getSolution(this.affectationTab);
+            this.solutionValue = this.affectionSolution
+                .map((as) => as.value)
+                .reduce((newVal, oldVal) => oldVal + newVal, 0);
         }
     }
 

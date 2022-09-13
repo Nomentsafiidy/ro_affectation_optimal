@@ -2,46 +2,44 @@
     <app-header></app-header>
     <div class="content">
         <div class="tab_form">
-            <div class="input_group" *ngIf="simpleTab.type == 'Affectation Maximal'">
-                <div class="label">Complément à</div>
+            <div class="input_group">
+                <div class="label">Nombre de ligne et Colonne</div>
+                <input
+                    [(ngModel)]="simpleTab.rowAndCol"
+                    type="number"
+                    min="0"
+                    class="input"
+                    (input)="colAndRowChange()"
+                />
+            </div>
+            <div class="input_group">
+                <div class="label">Type</div>
+                <select class="input" [(ngModel)]="simpleTab.type">
+                    <option [value]="AFFECTATION_TYPE.MIN">Minumun</option>
+                    <option [value]="AFFECTATION_TYPE.MAX">Maximum</option>
+                </select>
+            </div>
+            <div *ngIf="simpleTab.type == AFFECTATION_TYPE.MAX" class="input_group">
+                <div class="label">Complement</div>
                 <input [(ngModel)]="simpleTab.complement" type="number" min="0" class="input" />
-            </div>
-
-            <div class="input_group">
-                <div class="label">Ligne</div>
-                <input [(ngModel)]="simpleTab.row" type="number" min="0" class="input" />
-            </div>
-            <div class="input_group">
-                <div class="label">Colonne</div>
-                <input [(ngModel)]="simpleTab.col" type="number" min="0" class="input" />
             </div>
             <div class="btn">
                 <button (click)="createTab()" class="btn_primary">Créer tableau</button>
-            </div>
-
-            <div></div>
-            <div class="input_group">
-                <div class="label">Type</div>
-                <select i="select" class="input" [(ngModel)]="simpleTab.type">
-                    <option *ngFor="let typeaffectation of typeAffectations" [value]="typeaffectation"
-                        >{{typeaffectation}}</option
-                    >
-                </select>
-            </div>
-            <div class="actions btn">
-                <button class="btn_primary">resoudre</button>
             </div>
         </div>
         <div class="tab_body">
             <div>
                 <ng-container *ngIf="affectationTab">
                     <app-affectation-tab
+                        (maxChange)="onMaxChange($event)"
                         (resolveAffectation)="resolveAffectation($event)"
                         [affectationTab]="affectationTab"
                     ></app-affectation-tab>
                 </ng-container>
             </div>
-
+            <div class="complement" *ngIf="simpleTab.type == AFFECTATION_TYPE.MAX">
+                {{ simpleTab.complement }}
+            </div>
             <ng-container *ngIf="affectationTabResult.length">
                 <app-affectation-tab
                     *ngFor="let affectationTab of affectationTabResult"
@@ -52,14 +50,14 @@
             <div *ngIf="solutionFound">
                 <div class="solution_container">
                     <div class="title">Solution trouvé</div>
-                    <div class="affectation">
-                        <div class="row">A</div>
+                    <div class="affectation" *ngFor="let arc of affectionSolution">
+                        <div class="row">{{ affectationTab.rowHeader[arc.rowIndex] }}</div>
                         <div class="array">====></div>
-                        <div class="col">a</div>
+                        <div class="col">{{ affectationTab.colHeader[arc.colIndex] }}</div>
                         <div class="separator">:</div>
-                        <div class="value">50</div>
+                        <div class="value">{{arc.value}}</div>
                     </div>
-                    <div class="footer">D = 50</div>
+                    <div class="footer">D = {{ solutionValue }}</div>
                 </div>
             </div>
         </div>
