@@ -138,6 +138,20 @@ export class AffectationTab {
         return !(makedRow.some((e) => !e) || makedCol.some((e) => !e));
     }
 
+    public getSolution(originalTab: AffectationTab) {
+        // TODO
+        // const solutionCells: AffectationCell[] = [];
+        // this.rows.forEach((row) => {
+        //     this.cols.forEach((col) => {
+        //         const cell = this.getCell(row, col);
+        //         if (cell.marked) {
+        //             makedRow[row] = true;
+        //             makedCol[col] = true;
+        //         }
+        //     });
+        // });
+    }
+
     //
 
     getCellWithoutMarkedZero(): AffectationCell | null {

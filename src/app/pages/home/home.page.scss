@@ -44,6 +44,37 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            .solution_container {
+                margin: 16px;
+                padding: 24px;
+                border: 1px solid #e5e5e5;
+                .title {
+                    text-align: center;
+                    color: green;
+                    font-size: 24px;
+                    line-height: 24px;
+                    margin-bottom: 0.6em;
+                }
+                .affectation {
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                    color: #333;
+                    font-size: 16px;
+                    line-height: 24px;
+                    margin-bottom: 0.6em;
+                    & > * {
+                        margin: 0 4px;
+                    }
+                }
+                .footer {
+                    text-align: center;
+                    color: #666;
+                    font-size: 24px;
+                    line-height: 24px;
+                    font-weight: bold;
+                }
+            }
         }
     }
 

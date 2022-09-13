@@ -50,27 +50,18 @@
                 ></app-affectation-tab>
             </ng-container>
             <div *ngIf="solutionFound">
-                Solution trouvé
+                <div class="solution_container">
+                    <div class="title">Solution trouvé</div>
+                    <div class="affectation">
+                        <div class="row">A</div>
+                        <div class="array">====></div>
+                        <div class="col">a</div>
+                        <div class="separator">:</div>
+                        <div class="value">50</div>
+                    </div>
+                    <div class="footer">D = 50</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- <div class="content">
- 
-    <div class="table">
-     
-        commennt
-        <ng-container *ngIf="affectationTab">
-            <div class="affectation_tab">
-                <div *ngFor="let row of affectationTab.rows">
-                    <div *ngFor="let col of affectationTab.cols">
-                        {{ row }}-{{col}}
-                    </div>
-                </div>
-            </div>
-        </ng-container>
-        fin commentaire
-       
-    </div>
-</div> -->
