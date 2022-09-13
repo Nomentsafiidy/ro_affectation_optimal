@@ -38,7 +38,14 @@
                 </ng-container>
             </div>
             <div class="complement" *ngIf="simpleTab.type == AFFECTATION_TYPE.MAX">
-                {{ simpleTab.complement }}
+                <div>
+                    <p>
+                        Complément à
+                    </p>
+                    <p>
+                        {{ simpleTab.complement }}
+                    </p>
+                </div>
             </div>
             <ng-container *ngIf="affectationTabResult.length">
                 <app-affectation-tab
