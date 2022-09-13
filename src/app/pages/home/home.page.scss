@@ -11,11 +11,13 @@
             box-shadow: 2px 0 5px -2px #888;
             position: fixed;
             padding: 20px 0;
+            font-family: Arial, Helvetica, sans-serif;
             .input_group {
                 display: flex;
                 flex-direction: column;
                 padding: 10px;
                 font-size: 16px;
+
                 color: #333;
                 .label {
                     margin: 2px;
@@ -26,12 +28,16 @@
                     border: 1px solid;
                     border-radius: 4px;
                     outline: none !important;
+                    padding: 0 10px;
+                    margin: 10px;
+                    font-family: Arial, Helvetica, sans-serif;
                 }
             }
             .btn {
                 display: flex;
                 justify-content: flex-end;
                 padding: 10px;
+                margin: 10px;
                 .btn_primary {
                     padding: 10px;
                 }
