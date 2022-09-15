@@ -6,8 +6,61 @@ export class AffectationTab {
     public cells: AffectationCell[];
     public cols: number[];
     public rows: number[];
-    public colHeader: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-    public rowHeader: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+    public colHeader: string[] = [
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z',
+    ];
+    public rowHeader: string[] = [
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
+    ];
     constructor(simpleTab: SimpleTab) {
         this.simpleTab = simpleTab;
         this.cells = [];
@@ -216,7 +269,7 @@ export class AffectationTab {
             ...this.cells
                 .filter((rc) => rc.rowMarked && !rc.colMarked)
                 .filter((rc) => rc.value != 0)
-                .map((rc) => rc.value),
+                .map((rc) => rc.value)
         );
     }
 
